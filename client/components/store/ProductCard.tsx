@@ -1,14 +1,16 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { products, type Product } from "@/data/products";
 import { useCart } from "@/store/cart";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   return (
     <div className="group">
-      <Link to={`/shop`} className="block">
+      <Link href={`/shop`} className="block">
         <div className="overflow-hidden rounded-md bg-muted/30">
           <AspectRatio ratio={4 / 5}>
             <img
