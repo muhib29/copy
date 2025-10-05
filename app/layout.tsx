@@ -1,32 +1,26 @@
 "use client";
 
-import "../client/global.css";
-import { useState } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { CartProvider } from "@/store/cart";
+import "./globals.css";
+import type { Metadata } from "next";
 import Layout from "@/components/layout/Layout";
+import Providers from "./providers";
+
+export const metadata: Metadata = {
+  title: "Nasir All Fabrics",
+  description: "Elegant ladies unstitched collections for every season.",
+};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [queryClient] = useState(() => new QueryClient());
   return (
     <html lang="en">
       <body>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <CartProvider>
-              <Toaster />
-              <Sonner />
-              <Layout>{children}</Layout>
-            </CartProvider>
-          </TooltipProvider>
-        </QueryClientProvider>
+        <Providers>
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
     </html>
   );
