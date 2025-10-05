@@ -11,12 +11,13 @@ export default function CategoryPage({
 }: {
   params: { slug: string };
 }) {
-  const category = categories.find((item) => item.slug === params.slug);
+  const matchedCategory = categories.find((item) => item.slug === params.slug);
 
-  if (!category) {
+  if (!matchedCategory) {
     notFound();
   }
 
+  const category = matchedCategory;
   const categoryProducts = products.filter(
     (product) => product.category === category.slug,
   );
