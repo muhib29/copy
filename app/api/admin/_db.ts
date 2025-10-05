@@ -3,7 +3,7 @@ import path from "path";
 import { z } from "zod";
 import type { CategoryDTO, CollectionDTO, ProductDTO } from "@shared/api";
 
-const dbPath = path.resolve(process.cwd(), "server/data/db.json");
+const dbPath = path.resolve(process.cwd(), "app/data/db.json");
 
 export async function readDb() {
   const raw = await fs.readFile(dbPath, "utf8");

@@ -1,3 +1,4 @@
+"use client";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 
