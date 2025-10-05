@@ -71,18 +71,20 @@ export default function HomePage() {
           Shop by Collection
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
-          {[{
-            title: "Summer Collection",
-            image:
-              "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop",
-            href: "/collection/summer",
-          },
-          {
-            title: "Winter Collection",
-            image:
-              "https://images.unsplash.com/photo-1515542706656-8e6ef17df6f1?q=80&w=1600&auto=format&fit=crop",
-            href: "/collection/winter",
-          }].map((collection) => (
+          {[
+            {
+              title: "Summer Collection",
+              image:
+                "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop",
+              href: "/collection/summer",
+            },
+            {
+              title: "Winter Collection",
+              image:
+                "https://images.unsplash.com/photo-1515542706656-8e6ef17df6f1?q=80&w=1600&auto=format&fit=crop",
+              href: "/collection/winter",
+            },
+          ].map((collection) => (
             <Link
               key={collection.title}
               href={collection.href}
