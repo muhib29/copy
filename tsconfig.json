@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
@@ -26,32 +22,15 @@
     "strictNullChecks": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./client/*"
-      ],
-      "@shared/*": [
-        "./shared/*"
-      ]
-    },
-    "allowJs": true,
-    "incremental": true,
-    "resolveJsonModule": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+      "@/*": ["./client/*"],
+      "@shared/*": ["./shared/*"]
+    }
   },
   "include": [
     "app/**/*",
     "client/**/*",
-    "next-env.d.ts",
-    "server/**/*",
     "shared/**/*",
-    ".next/types/**/*.ts"
+    "next-env.d.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "exclude": ["node_modules", "dist"]
 }
