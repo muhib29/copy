@@ -1,4 +1,7 @@
-import { Link, NavLink } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ShoppingBag, Search, User } from "lucide-react";
 import {
   Sheet,
@@ -10,10 +13,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/store/cart";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export default function SiteHeader() {
   const { items, totalQty, totalPrice, removeItem } = useCart();
   const [index, setIndex] = useState(0);
+  const pathname = usePathname();
 
   const messages = [
     "Complimentary shipping on orders over $150",
@@ -24,7 +29,7 @@ export default function SiteHeader() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % messages.length);
-    }, 4000); // every 4 seconds
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
   return (
@@ -32,20 +37,15 @@ export default function SiteHeader() {
       <div className="bg-primary text-primary-foreground text-xs sm:text-sm">
         <div className="bg-primary text-primary-foreground text-xs sm:text-sm overflow-hidden">
           <div className="container flex items-center justify-center py-2 text-center transition-all duration-500">
-            <p
-              key={index}
-              className="animate-fadeIn text-center text-sm"
-            >
+            <p key={index} className="animate-fadeIn text-center text-sm">
               {messages[index]}
             </p>
           </div>
         </div>
-
       </div>
 
       <div className="container flex h-16 items-center justify-between">
-
-        <Link to="/" className="font-display text-2xl tracking-wider">
+        <Link href="/" className="font-display text-2xl tracking-wider">
           Nasir All Fabrics
         </Link>
         <nav className="hidden md:flex gap-6 text-sm">
@@ -54,15 +54,16 @@ export default function SiteHeader() {
             ["Winter Collection", "/collection/winter"],
             ["Shop All", "/shop"],
           ].map(([label, href]) => (
-            <NavLink
+            <Link
               key={href}
-              to={href}
-              className={({ isActive }) =>
-                `hover:text-foreground/80 ${isActive ? "text-foreground" : "text-foreground/60"}`
-              }
+              href={href}
+              className={cn(
+                "hover:text-foreground/80",
+                pathname === href ? "text-foreground" : "text-foreground/60",
+              )}
             >
               {label}
-            </NavLink>
+            </Link>
           ))}
         </nav>
         <div className="flex items-center gap-2">
@@ -137,7 +138,7 @@ export default function SiteHeader() {
                   </div>
                   <Button className="w-full">Checkout</Button>
                   <Link
-                    to="/shop"
+                    href="/shop"
                     className="block text-center text-sm underline"
                   >
                     Continue shopping

@@ -1,30 +1,24 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Facebook,
   Instagram,
   Phone,
   MapPin,
-  Banknote,
   MessageCircle,
   Mail,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export default function SiteFooter() {
   return (
     <footer className="border-t bg-gradient-to-b from-gray-50 via-white to-gray-100 text-gray-700">
-      {/* Main Footer */}
       <div className="container grid gap-12 py-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {/* Brand / About */}
         <div className="space-y-5 -mr-10">
           <h3 className="font-display text-2xl font-semibold text-gray-900">
             Nasir All Fabrics
           </h3>
-          {/* <p className="text-sm leading-relaxed text-muted-foreground">
-            Elevated contemporary fashion with artisanal detailing.
-          </p> */}
-
-          {/* Contact */}
           <div className="space-y-2 text-sm">
             <p className="flex items-start gap-2">
               <Mail className="h-4 w-4 text-gray-500 shrink-0" />
@@ -52,7 +46,6 @@ export default function SiteFooter() {
                 </a>
               </span>
             </p>
-
             <p className="flex items-start gap-2">
               <MapPin className="h-4 w-4 text-gray-500 shrink-0" />
               <span>
@@ -61,12 +54,9 @@ export default function SiteFooter() {
               </span>
             </p>
           </div>
-        </div>  
-        {/* Shop */}
+        </div>
         <div>
-          <p className="mb-4 font-semibold text-gray-900 tracking-wide">
-            Shop
-          </p>
+          <p className="mb-4 font-semibold text-gray-900 tracking-wide">Shop</p>
           <ul className="space-y-2 text-sm text-muted-foreground">
             {[
               ["Summer Collection", "/collection/summer"],
@@ -76,7 +66,7 @@ export default function SiteFooter() {
             ].map(([label, href]) => (
               <li key={href}>
                 <Link
-                  to={href}
+                  href={href}
                   className="hover:text-primary transition-colors"
                 >
                   {label}
@@ -85,8 +75,6 @@ export default function SiteFooter() {
             ))}
           </ul>
         </div>
-
-        {/* Categories */}
         <div>
           <p className="mb-4 font-semibold text-gray-900 tracking-wide">
             Categories
@@ -101,7 +89,7 @@ export default function SiteFooter() {
             ].map(([label, href]) => (
               <li key={href}>
                 <Link
-                  to={href}
+                  href={href}
                   className="hover:text-primary transition-colors"
                 >
                   {label}
@@ -110,8 +98,6 @@ export default function SiteFooter() {
             ))}
           </ul>
         </div>
-
-        {/* Company */}
         <div>
           <p className="mb-4 font-semibold text-gray-900 tracking-wide">
             Company
@@ -125,7 +111,7 @@ export default function SiteFooter() {
             ].map(([label, href]) => (
               <li key={href}>
                 <Link
-                  to={href}
+                  href={href}
                   className="hover:text-primary transition-colors"
                 >
                   {label}
@@ -134,8 +120,6 @@ export default function SiteFooter() {
             ))}
           </ul>
         </div>
-
-        {/* Newsletter */}
         <div>
           <p className="mb-4 font-semibold text-gray-900 tracking-wide">
             Join Our Newsletter
@@ -145,7 +129,7 @@ export default function SiteFooter() {
               e.preventDefault();
               const form = e.currentTarget as HTMLFormElement;
               const input = form.elements.namedItem(
-                "email"
+                "email",
               ) as HTMLInputElement;
               if (input?.value) {
                 alert("Thanks for subscribing!");
@@ -171,8 +155,7 @@ export default function SiteFooter() {
           <p className="mt-4 font-semibold text-gray-900 tracking-wide">
             Follow Us
           </p>
-           {/* Socials */}
-           <div className="flex gap-3 pt-3">
+          <div className="flex gap-3 pt-3">
             {[
               {
                 href: "https://www.instagram.com",
@@ -203,8 +186,6 @@ export default function SiteFooter() {
           </div>
         </div>
       </div>
-
-      {/* Bottom Bar */}
       <div className="border-t bg-gray-50 py-6 text-center text-xs text-muted-foreground">
         <p>
           © {new Date().getFullYear()}{" "}

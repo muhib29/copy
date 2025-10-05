@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Carousel,
   CarouselContent,
@@ -9,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ProductGrid } from "@/components/store/ProductCard";
 import { products } from "@/data/products";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export default function Index() {
   const heroSlides = [
@@ -29,7 +31,6 @@ export default function Index() {
 
   return (
     <div className="flex flex-col mt-0">
-      {/* 🖼️ Full Banner Image Carousel (No Text) */}
       <section className="relative w-full">
         <Carousel className="w-full">
           <CarouselContent>
@@ -45,14 +46,11 @@ export default function Index() {
               </CarouselItem>
             ))}
           </CarouselContent>
-
-          {/* Navigation arrows (optional, you can remove if you want auto-slide only) */}
           <CarouselPrevious className="hidden md:flex absolute left-5 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white text-black rounded-full" />
           <CarouselNext className="hidden md:flex absolute right-5 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white text-black rounded-full" />
         </Carousel>
       </section>
 
-      {/* 🛍️ Featured Products (keep your sections below unchanged if needed) */}
       <section className="container pb-6 pt-10 md:py-10">
         <div className="mb-6 flex items-end justify-between">
           <div>
@@ -62,17 +60,11 @@ export default function Index() {
             </p>
           </div>
           <Button asChild variant="link" className="px-0">
-            <Link to="/shop">Shop all</Link>
+            <Link href="/shop">Shop all</Link>
           </Button>
         </div>
         <ProductGrid items={products.slice(0, 8)} />
       </section>
-
-
-
-
-
-
 
       <section className="container py-12">
         <p className="text-xs tracking-widest text-accent">Ladies Unstitched</p>
@@ -96,7 +88,7 @@ export default function Index() {
           ].map((c) => (
             <Link
               key={c.title}
-              to={c.href}
+              href={c.href}
               className="group relative overflow-hidden rounded-md"
             >
               <img
@@ -116,8 +108,6 @@ export default function Index() {
         </div>
       </section>
 
-
-      {/* Banner */}
       <section className="container py-12">
         <div className="relative overflow-hidden rounded-md bg-muted">
           <img
@@ -138,7 +128,7 @@ export default function Index() {
               </p>
               <div className="mt-4">
                 <Button asChild variant="secondary">
-                  <Link to="/sale">Shop Sale</Link>
+                  <Link href="/sale">Shop Sale</Link>
                 </Button>
               </div>
             </div>
@@ -146,7 +136,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Newsletter */}
       <section className="border-y bg-muted/30">
         <div className="container grid items-center gap-8 py-12 md:grid-cols-2">
           <div>

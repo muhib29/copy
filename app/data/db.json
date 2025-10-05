@@ -1,21 +1,10 @@
 {
   "collections": [
-    {
-      "id": "summer",
-      "name": "Summer"
-    },
-    {
-      "id": "winter",
-      "name": "Winter"
-    }
+    { "id": "summer", "name": "Summer" },
+    { "id": "winter", "name": "Winter" }
   ],
   "categories": [
-    {
-      "id": "lawn",
-      "name": "Lawn",
-      "slug": "lawn",
-      "collection": "Winter"
-    },
+    { "id": "lawn", "name": "Lawn", "slug": "lawn", "collection": "Winter" },
     {
       "id": "cotton",
       "name": "Cotton",
@@ -28,12 +17,7 @@
       "slug": "embroidered",
       "collection": "Summer"
     },
-    {
-      "id": "linen",
-      "name": "Linen",
-      "slug": "linen",
-      "collection": "Winter"
-    },
+    { "id": "linen", "name": "Linen", "slug": "linen", "collection": "Winter" },
     {
       "id": "karandi",
       "name": "Karandi",
