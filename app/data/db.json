@@ -5,15 +5,56 @@
   ],
   "categories": [
     { "id": "lawn", "name": "Lawn", "slug": "lawn", "collection": "Winter" },
-    { "id": "cotton", "name": "Cotton", "slug": "cotton", "collection": "Summer" },
-    { "id": "embroidered", "name": "Embroidered", "slug": "embroidered", "collection": "Summer" },
+    {
+      "id": "cotton",
+      "name": "Cotton",
+      "slug": "cotton",
+      "collection": "Summer"
+    },
+    {
+      "id": "embroidered",
+      "name": "Embroidered",
+      "slug": "embroidered",
+      "collection": "Summer"
+    },
     { "id": "linen", "name": "Linen", "slug": "linen", "collection": "Winter" },
-    { "id": "karandi", "name": "Karandi", "slug": "karandi", "collection": "Winter" },
-    { "id": "shawls", "name": "Shawls", "slug": "shawls", "collection": "Winter" }
+    {
+      "id": "karandi",
+      "name": "Karandi",
+      "slug": "karandi",
+      "collection": "Winter"
+    },
+    {
+      "id": "shawls",
+      "name": "Shawls",
+      "slug": "shawls",
+      "collection": "Winter"
+    }
   ],
   "products": [
-    { "id": "p1", "name": "3-Piece Lawn Printed", "price": 49, "image": "https://images.unsplash.com/photo-1583391733952-429f0c4a4eb8?q=80&w=1600&auto=format&fit=crop", "collection": "Summer", "category": "embroidered" },
-    { "id": "p2", "name": "2-Piece Cotton Embroidered", "price": 59, "image": "https://images.unsplash.com/photo-1556909114-33e7bb6193d9?q=80&w=1600&auto=format&fit=crop", "collection": "Summer", "category": "embroidered" },
-    { "id": "p4", "name": "Linen 3-Piece Embroidered", "price": 79, "image": "https://images.unsplash.com/photo-1549284923-7697b9a38a83?q=80&w=1600&auto=format&fit=crop", "collection": "Winter", "category": "linen" }
+    {
+      "id": "p1",
+      "name": "3-Piece Lawn Printed",
+      "price": 49,
+      "image": "https://images.unsplash.com/photo-1583391733952-429f0c4a4eb8?q=80&w=1600&auto=format&fit=crop",
+      "collection": "Summer",
+      "category": "embroidered"
+    },
+    {
+      "id": "p2",
+      "name": "2-Piece Cotton Embroidered",
+      "price": 59,
+      "image": "https://images.unsplash.com/photo-1556909114-33e7bb6193d9?q=80&w=1600&auto=format&fit=crop",
+      "collection": "Summer",
+      "category": "embroidered"
+    },
+    {
+      "id": "p4",
+      "name": "Linen 3-Piece Embroidered",
+      "price": 79,
+      "image": "https://images.unsplash.com/photo-1549284923-7697b9a38a83?q=80&w=1600&auto=format&fit=crop",
+      "collection": "Winter",
+      "category": "linen"
+    }
   ]
 }

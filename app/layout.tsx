@@ -9,7 +9,11 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { CartProvider } from "@/store/cart";
 import Layout from "@/components/layout/Layout";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [queryClient] = useState(() => new QueryClient());
   return (
     <html lang="en">

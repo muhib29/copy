@@ -75,7 +75,12 @@ export default function SiteHeader() {
           </Button>
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Cart" className="relative">
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Cart"
+                className="relative"
+              >
                 <ShoppingBag className="h-5 w-5" />
                 {totalQty > 0 && (
                   <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-medium text-accent-foreground">
@@ -90,20 +95,35 @@ export default function SiteHeader() {
               </SheetHeader>
               <div className="mt-4 space-y-4">
                 {items.length === 0 && (
-                  <p className="text-sm text-muted-foreground">Your cart is empty.</p>
+                  <p className="text-sm text-muted-foreground">
+                    Your cart is empty.
+                  </p>
                 )}
                 {items.map((i) => (
                   <div key={i.id} className="flex gap-3">
-                    <img src={i.image} alt={i.name} className="h-20 w-16 rounded object-cover" />
+                    <img
+                      src={i.image}
+                      alt={i.name}
+                      className="h-20 w-16 rounded object-cover"
+                    />
                     <div className="flex-1">
                       <div className="flex items-start justify-between">
                         <div>
                           <p className="text-sm font-medium">{i.name}</p>
-                          <p className="text-xs text-muted-foreground">Qty {i.qty}</p>
+                          <p className="text-xs text-muted-foreground">
+                            Qty {i.qty}
+                          </p>
                         </div>
-                        <p className="text-sm">${(i.qty * i.price).toFixed(2)}</p>
+                        <p className="text-sm">
+                          ${(i.qty * i.price).toFixed(2)}
+                        </p>
                       </div>
-                      <Button variant="link" size="sm" className="px-0 text-destructive" onClick={() => removeItem(i.id)}>
+                      <Button
+                        variant="link"
+                        size="sm"
+                        className="px-0 text-destructive"
+                        onClick={() => removeItem(i.id)}
+                      >
                         Remove
                       </Button>
                     </div>
@@ -117,7 +137,10 @@ export default function SiteHeader() {
                     <span>${totalPrice.toFixed(2)}</span>
                   </div>
                   <Button className="w-full">Checkout</Button>
-                  <Link href="/shop" className="block text-center text-sm underline">
+                  <Link
+                    href="/shop"
+                    className="block text-center text-sm underline"
+                  >
                     Continue shopping
                   </Link>
                 </div>

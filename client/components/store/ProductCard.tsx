@@ -25,12 +25,24 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="mt-3 flex items-start justify-between gap-2">
         <div>
           <h3 className="text-sm font-medium">{product.name}</h3>
-          <p className="mt-1 text-sm text-muted-foreground">${product.price.toFixed(2)}</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            ${product.price.toFixed(2)}
+          </p>
         </div>
         <Button
           variant="secondary"
           size="sm"
-          onClick={() => addItem({ id: product.id, name: product.name, price: product.price, image: product.image }, 1)}
+          onClick={() =>
+            addItem(
+              {
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+              },
+              1,
+            )
+          }
           className="rounded-full"
         >
           Add

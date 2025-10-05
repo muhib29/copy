@@ -55,7 +55,9 @@ export default function Index() {
         <div className="mb-6 flex items-end justify-between">
           <div>
             <h2 className="font-display text-2xl md:text-3xl">Featured</h2>
-            <p className="text-sm text-muted-foreground">Curated pieces our customers love</p>
+            <p className="text-sm text-muted-foreground">
+              Curated pieces our customers love
+            </p>
           </div>
           <Button asChild variant="link" className="px-0">
             <Link href="/shop">Shop all</Link>
@@ -66,7 +68,9 @@ export default function Index() {
 
       <section className="container py-12">
         <p className="text-xs tracking-widest text-accent">Ladies Unstitched</p>
-        <h2 className="mb-4 mt-2 font-display text-2xl md:text-3xl">Shop by Collection</h2>
+        <h2 className="mb-4 mt-2 font-display text-2xl md:text-3xl">
+          Shop by Collection
+        </h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {[
             {
@@ -82,12 +86,22 @@ export default function Index() {
               href: "/collection/winter",
             },
           ].map((c) => (
-            <Link key={c.title} href={c.href} className="group relative overflow-hidden rounded-md">
-              <img src={c.image} alt={c.title} className="aspect-[5/3] w-full object-cover transition duration-500 group-hover:scale-105" />
+            <Link
+              key={c.title}
+              href={c.href}
+              className="group relative overflow-hidden rounded-md"
+            >
+              <img
+                src={c.image}
+                alt={c.title}
+                className="aspect-[5/3] w-full object-cover transition duration-500 group-hover:scale-105"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               <div className="absolute bottom-4 left-4">
                 <h3 className="font-display text-2xl text-white">{c.title}</h3>
-                <span className="mt-1 inline-block text-xs tracking-widest text-white/80">EXPLORE</span>
+                <span className="mt-1 inline-block text-xs tracking-widest text-white/80">
+                  EXPLORE
+                </span>
               </div>
             </Link>
           ))}
@@ -96,12 +110,22 @@ export default function Index() {
 
       <section className="container py-12">
         <div className="relative overflow-hidden rounded-md bg-muted">
-          <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?q=80&w=2000&auto=format&fit=crop" alt="Sale" className="h-64 w-full object-cover opacity-90 md:h-80" />
+          <img
+            src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?q=80&w=2000&auto=format&fit=crop"
+            alt="Sale"
+            className="h-64 w-full object-cover opacity-90 md:h-80"
+          />
           <div className="absolute inset-0 grid place-items-center bg-black/30">
             <div className="text-center text-white">
-              <p className="text-xs tracking-widest text-white/80">LIMITED TIME</p>
-              <h3 className="mt-2 font-display text-3xl md:text-4xl">Mid-Season Sale</h3>
-              <p className="mt-1 text-white/90">Up to 40% off selected styles</p>
+              <p className="text-xs tracking-widest text-white/80">
+                LIMITED TIME
+              </p>
+              <h3 className="mt-2 font-display text-3xl md:text-4xl">
+                Mid-Season Sale
+              </h3>
+              <p className="mt-1 text-white/90">
+                Up to 40% off selected styles
+              </p>
               <div className="mt-4">
                 <Button asChild variant="secondary">
                   <Link href="/sale">Shop Sale</Link>
@@ -115,14 +139,20 @@ export default function Index() {
       <section className="border-y bg-muted/30">
         <div className="container grid items-center gap-8 py-12 md:grid-cols-2">
           <div>
-            <h3 className="font-display text-2xl md:text-3xl">Join Nasir All Fabrics Circle</h3>
-            <p className="mt-2 text-sm text-muted-foreground">Be the first to know about new drops, exclusive offers and more.</p>
+            <h3 className="font-display text-2xl md:text-3xl">
+              Join Nasir All Fabrics Circle
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Be the first to know about new drops, exclusive offers and more.
+            </p>
           </div>
           <form
             onSubmit={(e) => {
               e.preventDefault();
               const form = e.currentTarget as HTMLFormElement;
-              const input = form.elements.namedItem("email") as HTMLInputElement;
+              const input = form.elements.namedItem(
+                "email",
+              ) as HTMLInputElement;
               if (input?.value) {
                 alert("Thanks for subscribing!");
                 input.value = "";
@@ -130,7 +160,13 @@ export default function Index() {
             }}
             className="flex w-full gap-3"
           >
-            <input type="email" name="email" placeholder="Email address" required className="w-full rounded-md border bg-background px-3 py-2 text-sm" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email address"
+              required
+              className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+            />
             <Button type="submit">Subscribe</Button>
           </form>
         </div>
