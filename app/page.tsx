@@ -153,7 +153,9 @@ export default function HomePage() {
             onSubmit={(event) => {
               event.preventDefault();
               const form = event.currentTarget;
-              const input = form.elements.namedItem("email") as HTMLInputElement | null;
+              const input = form.elements.namedItem(
+                "email",
+              ) as HTMLInputElement | null;
               if (input?.value) {
                 alert("Thanks for subscribing!");
                 input.value = "";

@@ -34,7 +34,9 @@ export default function CollectionPage({
     <div className="container py-10">
       <div className="mb-8 flex items-end justify-between">
         <div>
-          <p className="text-xs tracking-widest text-accent">Ladies Unstitched</p>
+          <p className="text-xs tracking-widest text-accent">
+            Ladies Unstitched
+          </p>
           <h1 className="font-display text-3xl md:text-4xl">
             {collection} Collection
           </h1>

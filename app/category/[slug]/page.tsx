@@ -6,11 +6,7 @@ import { ProductGrid } from "@/components/store/ProductCard";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 
-export default function CategoryPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default function CategoryPage({ params }: { params: { slug: string } }) {
   const matchedCategory = categories.find((item) => item.slug === params.slug);
 
   if (!matchedCategory) {
