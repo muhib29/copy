@@ -1,4 +1,6 @@
 import * as React from "react";
+"use client";
+
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
