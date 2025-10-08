@@ -2,6 +2,7 @@
 const nextConfig = {
   typescript: { ignoreBuildErrors: false },
   eslint: { ignoreDuringBuilds: true },
+  allowedDevOrigins: ["*.fly.dev"],
 };
 
 export default nextConfig;
