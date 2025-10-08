@@ -16,8 +16,9 @@ import {
 
 const navigation = [
   { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-  { name: "Textures", href: "/admin/textures", icon: Image },
+  { name: "Collections", href: "/admin/collections", icon: Folder },
   { name: "Categories", href: "/admin/categories", icon: Folder },
+  { name: "Products", href: "/admin/products", icon: Image },
   { name: "Settings", href: "/admin/settings", icon: Settings },
   { name: "Logout", href: "/admin/login", icon: LogOut, isLogout: true },
 ];
