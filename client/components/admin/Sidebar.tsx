@@ -16,8 +16,9 @@ import {
 
 const navigation = [
   { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-  { name: "Textures", href: "/admin/textures", icon: Image },
+  { name: "Collections", href: "/admin/collections", icon: Folder },
   { name: "Categories", href: "/admin/categories", icon: Folder },
+  { name: "Products", href: "/admin/products", icon: Image },
   { name: "Settings", href: "/admin/settings", icon: Settings },
   { name: "Logout", href: "/admin/login", icon: LogOut, isLogout: true },
 ];
@@ -54,7 +55,7 @@ export function Sidebar({
                     onClick={handleLogout}
                     className={cn(
                       "group w-full flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
-                      "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                     )}
                   >
                     <item.icon className="mr-3 h-5 w-5" />
@@ -70,7 +71,7 @@ export function Sidebar({
                     "group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
                     isActive
                       ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                   )}
                   onClick={() => setIsOpen(false)} // 👈 Close mobile on click
                 >
@@ -104,7 +105,7 @@ export function Sidebar({
                       onClick={handleLogout}
                       className={cn(
                         "group w-full flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
-                        "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                       )}
                     >
                       <item.icon className="mr-3 h-5 w-5" />
@@ -120,7 +121,7 @@ export function Sidebar({
                       "group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
                       isActive
                         ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                     )}
                     onClick={() => setIsOpen(false)}
                   >

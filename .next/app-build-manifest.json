@@ -26,15 +26,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/auth/[...nextauth]/route.js"
     ],
-    "/collection/[slug]/page": [
+    "/admin/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/collection/[slug]/page.js"
+      "static/chunks/app/admin/layout.js"
     ],
-    "/api/admin/categories/route": [
+    "/admin/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/categories/route.js"
+      "static/chunks/app/admin/login/page.js"
     ]
   }
 }

