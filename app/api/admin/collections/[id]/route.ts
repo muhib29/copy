@@ -19,8 +19,13 @@ export async function PUT(
   const db = await getDb();
   const res = await db
     .collection("collections")
-    .findOneAndUpdate({ id: params.id }, { $set: parsed.data }, { returnDocument: "after" });
-  if (!res.value) return NextResponse.json({ message: "not found" }, { status: 404 });
+    .findOneAndUpdate(
+      { id: params.id },
+      { $set: parsed.data },
+      { returnDocument: "after" },
+    );
+  if (!res.value)
+    return NextResponse.json({ message: "not found" }, { status: 404 });
   return NextResponse.json(res.value);
 }
 

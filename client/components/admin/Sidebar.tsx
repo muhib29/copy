@@ -55,7 +55,7 @@ export function Sidebar({
                     onClick={handleLogout}
                     className={cn(
                       "group w-full flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
-                      "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                     )}
                   >
                     <item.icon className="mr-3 h-5 w-5" />
@@ -71,7 +71,7 @@ export function Sidebar({
                     "group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
                     isActive
                       ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                   )}
                   onClick={() => setIsOpen(false)} // 👈 Close mobile on click
                 >
@@ -105,7 +105,7 @@ export function Sidebar({
                       onClick={handleLogout}
                       className={cn(
                         "group w-full flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
-                        "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                       )}
                     >
                       <item.icon className="mr-3 h-5 w-5" />
@@ -121,7 +121,7 @@ export function Sidebar({
                       "group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
                       isActive
                         ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                     )}
                     onClick={() => setIsOpen(false)}
                   >

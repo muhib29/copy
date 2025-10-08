@@ -31,7 +31,9 @@ export async function POST(request: NextRequest) {
   }
 
   const db = await getDb();
-  const exists = await db.collection("products").findOne({ id: parsed.data.id });
+  const exists = await db
+    .collection("products")
+    .findOne({ id: parsed.data.id });
   if (exists) {
     return NextResponse.json({ message: "id exists" }, { status: 409 });
   }

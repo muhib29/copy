@@ -9,7 +9,11 @@ export async function GET(_request: NextRequest) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
   const db = await getDb();
-  const items = await db.collection("collections").find().project({ _id: 0 }).toArray();
+  const items = await db
+    .collection("collections")
+    .find()
+    .project({ _id: 0 })
+    .toArray();
   return NextResponse.json(items);
 }
 

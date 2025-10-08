@@ -3,7 +3,10 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { getDb, productSchema } from "../../_db";
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
   const session = await getServerSession(authOptions);
   if (!session || session.user.role !== "admin") {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -18,12 +21,20 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   const db = await getDb();
   const res = await db
     .collection("products")
-    .findOneAndUpdate({ id: params.id }, { $set: parsed.data }, { returnDocument: "after" });
-  if (!res.value) return NextResponse.json({ message: "not found" }, { status: 404 });
+    .findOneAndUpdate(
+      { id: params.id },
+      { $set: parsed.data },
+      { returnDocument: "after" },
+    );
+  if (!res.value)
+    return NextResponse.json({ message: "not found" }, { status: 404 });
   return NextResponse.json(res.value);
 }
 
-export async function DELETE(_request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(
+  _request: NextRequest,
+  { params }: { params: { id: string } },
+) {
   const session = await getServerSession(authOptions);
   if (!session || session.user.role !== "admin") {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
