@@ -1,10 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { collectionSchema, getDb } from "../../_db";
 
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } },
 ) {
+  const session = await getServerSession(authOptions);
+  if (!session || session.user.role !== "admin") {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
   const body = await request.json();
   const parsed = collectionSchema.safeParse({ ...body, id: params.id });
   if (!parsed.success) {
@@ -19,9 +25,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _request: Request,
+  _request: NextRequest,
   { params }: { params: { id: string } },
 ) {
+  const session = await getServerSession(authOptions);
+  if (!session || session.user.role !== "admin") {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
   const db = await getDb();
   await db.collection("collections").deleteOne({ id: params.id });
   const name = params.id.toLowerCase() === "summer" ? "Summer" : "Winter";
