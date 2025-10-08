@@ -16,6 +16,7 @@ export default function CategoriesPage() {
   const [creating, setCreating] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState<CategoryDTO>({ id: "", name: "", slug: "", collection: "Summer" });
+  const [editForm, setEditForm] = useState<Omit<CategoryDTO, "id">>({ name: "", slug: "", collection: "Summer" });
 
   const load = async () => {
     setLoading(true);
@@ -27,6 +28,11 @@ export default function CategoriesPage() {
     } finally { setLoading(false); }
   };
   useEffect(()=>{ load(); }, []);
+
+  const beginEdit = (c: CategoryDTO) => {
+    setEditId(c.id);
+    setEditForm({ name: c.name, slug: c.slug, collection: c.collection });
+  };
 
   const create = async () => {
     if (!form.id.trim() || !form.name.trim() || !form.slug.trim()) return toast.error("Fill all fields");
@@ -40,9 +46,9 @@ export default function CategoriesPage() {
     finally { setCreating(false); }
   };
 
-  const save = async (id: string, data: Omit<CategoryDTO, "id">) => {
+  const save = async (id: string) => {
     try {
-      await AdminAPI.updateCategory(id, data);
+      await AdminAPI.updateCategory(id, editForm);
       setEditId(null);
       await load();
       toast.success("Updated");
@@ -94,50 +100,45 @@ export default function CategoriesPage() {
                 <TableRow><TableCell colSpan={5}>Loading...</TableCell></TableRow>
               ) : items.length === 0 ? (
                 <TableRow><TableCell colSpan={5}>No categories</TableCell></TableRow>
-              ) : items.map((c)=> {
-                const [name, setName] = useState(c.name);
-                const [slug, setSlug] = useState(c.slug);
-                const [collection, setCollection] = useState<CollectionName>(c.collection);
-                return (
-                  <TableRow key={c.id}>
-                    <TableCell>{c.id}</TableCell>
-                    <TableCell>
-                      {editId===c.id ? (
-                        <Input value={name} onChange={(e)=>setName(e.target.value)} />
-                      ) : c.name}
-                    </TableCell>
-                    <TableCell>
-                      {editId===c.id ? (
-                        <Input value={slug} onChange={(e)=>setSlug(e.target.value)} />
-                      ) : c.slug}
-                    </TableCell>
-                    <TableCell>
-                      {editId===c.id ? (
-                        <Select value={collection} onValueChange={(v)=>setCollection(v as CollectionName)}>
-                          <SelectTrigger className="w-40"><SelectValue /></SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Summer">Summer</SelectItem>
-                            <SelectItem value="Winter">Winter</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      ) : c.collection}
-                    </TableCell>
-                    <TableCell className="text-right space-x-2">
-                      {editId===c.id ? (
-                        <>
-                          <Button size="sm" onClick={()=>save(c.id,{ name, slug, collection })}>Save</Button>
-                          <Button variant="outline" size="sm" onClick={()=>setEditId(null)}>Cancel</Button>
-                        </>
-                      ) : (
-                        <>
-                          <Button variant="outline" size="sm" onClick={()=>setEditId(c.id)}>Edit</Button>
-                          <Button variant="destructive" size="sm" onClick={()=>remove(c.id)}>Delete</Button>
-                        </>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+              ) : items.map((c)=> (
+                <TableRow key={c.id}>
+                  <TableCell>{c.id}</TableCell>
+                  <TableCell>
+                    {editId===c.id ? (
+                      <Input value={editForm.name} onChange={(e)=>setEditForm({...editForm,name:e.target.value})} />
+                    ) : c.name}
+                  </TableCell>
+                  <TableCell>
+                    {editId===c.id ? (
+                      <Input value={editForm.slug} onChange={(e)=>setEditForm({...editForm,slug:e.target.value})} />
+                    ) : c.slug}
+                  </TableCell>
+                  <TableCell>
+                    {editId===c.id ? (
+                      <Select value={editForm.collection} onValueChange={(v)=>setEditForm({...editForm,collection:v as CollectionName})}>
+                        <SelectTrigger className="w-40"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Summer">Summer</SelectItem>
+                          <SelectItem value="Winter">Winter</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    ) : c.collection}
+                  </TableCell>
+                  <TableCell className="text-right space-x-2">
+                    {editId===c.id ? (
+                      <>
+                        <Button size="sm" onClick={()=>save(c.id)}>Save</Button>
+                        <Button variant="outline" size="sm" onClick={()=>setEditId(null)}>Cancel</Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button variant="outline" size="sm" onClick={()=>beginEdit(c)}>Edit</Button>
+                        <Button variant="destructive" size="sm" onClick={()=>remove(c.id)}>Delete</Button>
+                      </>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </CardContent>
