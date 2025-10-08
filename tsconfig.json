@@ -1,12 +1,9 @@
 {
   "compilerOptions": {
+    "types": ["next-auth"],
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
@@ -26,31 +23,22 @@
     "strictNullChecks": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./client/*"
-      ],
-      "@shared/*": [
-        "./shared/*"
-      ]
+      "@/*": ["./client/*"],
+      "@shared/*": ["./shared/*"]
     },
     "allowJs": true,
     "incremental": true,
     "resolveJsonModule": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "plugins": [{ "name": "next" }]
   },
+
   "include": [
     "app/**/*",
     "client/**/*",
     "next-env.d.ts",
     "shared/**/*",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "types/**/*.d.ts"    // 👈 ADD THIS LINE
   ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "exclude": ["node_modules", "dist"]
 }

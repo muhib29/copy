@@ -1,22 +1,5 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { MongoClient, ServerApiVersion } from "mongodb";
 import { z } from "zod";
-import type { CategoryDTO, CollectionDTO, ProductDTO } from "@shared/api";
-
-const dbPath = path.resolve(process.cwd(), "app/data/db.json");
-
-export async function readDb() {
-  const raw = await fs.readFile(dbPath, "utf8");
-  return JSON.parse(raw) as {
-    collections: CollectionDTO[];
-    categories: CategoryDTO[];
-    products: ProductDTO[];
-  };
-}
-
-export async function writeDb(data: any) {
-  await fs.writeFile(dbPath, JSON.stringify(data, null, 2), "utf8");
-}
 
 export const collectionSchema = z.object({
   id: z.string(),
@@ -38,3 +21,39 @@ export const productSchema = z.object({
   collection: z.enum(["Summer", "Winter"]),
   category: z.string().min(1),
 });
+
+let cachedClient: MongoClient | null = null;
+
+export async function getDb() {
+  const uri = process.env.MONGODB_URI!;
+  const dbName = process.env.MONGODB_DB || "nextmerce";
+
+  if (!uri) {
+    throw new Error("❌ MONGODB_URI is not set in environment variables");
+  }
+
+  if (!cachedClient) {
+    cachedClient = new MongoClient(uri, {
+      serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+      },
+    });
+    await cachedClient.connect();
+    console.log("[v0] ✅ Connected to MongoDB");
+
+    const db = cachedClient.db(dbName);
+
+    await Promise.all([
+      db.collection("collections").createIndex({ id: 1 }, { unique: true }),
+      db.collection("categories").createIndex({ id: 1 }, { unique: true }),
+      db.collection("categories").createIndex({ slug: 1 }, { unique: true }),
+      db.collection("products").createIndex({ id: 1 }, { unique: true }),
+      db.collection("products").createIndex({ category: 1 }),
+      db.collection("products").createIndex({ collection: 1 }),
+    ]);
+  }
+
+  return cachedClient.db(dbName);
+}

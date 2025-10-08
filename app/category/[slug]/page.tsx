@@ -3,18 +3,20 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/store/ProductCard";
-import { products } from "@/data/products";
-import { categories } from "@/data/categories";
+import { useQuery } from "@tanstack/react-query";
+import { StoreAPI } from "@/lib/store-api";
 
 export default function CategoryPage({ params }: { params: { slug: string } }) {
-  const matchedCategory = categories.find((item) => item.slug === params.slug);
+  const productsQ = useQuery({ queryKey: ["products"], queryFn: StoreAPI.listProducts });
+  const categoriesQ = useQuery({ queryKey: ["categories"], queryFn: StoreAPI.listCategories });
+  const matchedCategory = (categoriesQ.data ?? []).find((item) => item.slug === params.slug);
 
   if (!matchedCategory) {
     notFound();
   }
 
   const category = matchedCategory;
-  const categoryProducts = products.filter(
+  const categoryProducts = (productsQ.data ?? []).filter(
     (product) => product.category === category.slug,
   );
 

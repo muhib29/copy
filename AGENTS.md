@@ -1,55 +1,40 @@
 # Fusion Starter
 
-A production-ready full-stack React application template with integrated Express server, featuring React Router 6 SPA mode, TypeScript, Vitest, Zod and modern tooling.
+Production-ready Next.js application with App Router APIs, TypeScript, Zod, and modern tooling.
 
-While the starter comes with a express server, only create endpoint when strictly neccesary, for example to encapsulate logic that must leave in the server, such as private keys handling, or certain DB operations, db...
+The legacy Vite + Express setup has been removed. Use Next.js API routes under `app/api/*` for server logic.
 
 ## Tech Stack
 
 - **PNPM**: Prefer pnpm
-- **Frontend**: React 18 + React Router 6 (spa) + TypeScript + Vite + TailwindCSS 3
-- **Backend**: Express server integrated with Vite dev server
-- **Testing**: Vitest
+- **Frontend**: Next.js 14 App Router + React 18 + TypeScript + TailwindCSS 3
+- **Backend**: Next.js API routes (Edge/Node runtimes)
+- **Testing**: (optional) add Playwright/Jest as needed
 - **UI**: Radix UI + TailwindCSS 3 + Lucide React icons
 
 ## Project Structure
 
 ```
-client/                   # React SPA frontend
-├── pages/                # Route components (Index.tsx = home)
+client/                   # UI components and client libs
 ├── components/ui/        # Pre-built UI component library
-├── App.tsx                # App entry point and with SPA routing setup
+├── lib/                  # Client utilities and API clients
 └── global.css            # TailwindCSS 3 theming and global styles
 
-server/                   # Express API backend
-├── index.ts              # Main server setup (express config + routes)
-└── routes/               # API handlers
+app/                      # Next.js App Router (routes + APIs)
+├── api/                  # API handlers (Mongo-backed)
+├── collection/[slug]/    # Collection page
+├── category/[slug]/      # Category page
+└── page.tsx              # Home page
 
 shared/                   # Types used by both client & server
-└── api.ts                # Example of how to share api interfaces
+└── api.ts                # Shared DTOs
 ```
 
 ## Key Features
 
-## SPA Routing System
+## Routing System
 
-The routing system is powered by React Router 6:
-
-- `client/pages/Index.tsx` represents the home page.
-- Routes are defined in `client/App.tsx` using the `react-router-dom` import
-- Route files are located in the `client/pages/` directory
-
-For example, routes can be defined with:
-
-```typescript
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-<Routes>
-  <Route path="/" element={<Index />} />
-  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-  <Route path="*" element={<NotFound />} />
-</Routes>;
-```
+Next.js App Router drives routing via the `app/` directory.
 
 ### Styling System
 
@@ -67,11 +52,9 @@ className={cn(
 )}
 ```
 
-### Express Server Integration
+### API Integration
 
-- **Development**: Single port (8080) for both frontend/backend
-- **Hot reload**: Both client and server code
-- **API endpoints**: Prefixed with `/api/`
+- **API endpoints**: Prefixed with `/api/` under `app/api/*`
 
 #### Example API Routes
 - `GET /api/ping` - Simple ping api
@@ -97,6 +80,18 @@ pnpm typecheck  # TypeScript validation
 pnpm test          # Run Vitest tests
 ```
 
+### Environment Variables
+
+Create a `.env.local` in the project root with:
+
+```
+MONGODB_URI=your-atlas-connection-string
+MONGODB_DB=fusion
+```
+
+The admin API uses MongoDB Atlas for CRUD of collections, categories, and products.
+
+
 ## Adding Features
 
 ### Add new colors to the theme
@@ -112,28 +107,18 @@ export interface MyRouteResponse {
 }
 ```
 
-2. Create a new route handler in `server/routes/my-route.ts`:
+2. Create a new route handler in `app/api/my-endpoint/route.ts`:
 ```typescript
-import { RequestHandler } from "express";
+import { NextResponse } from "next/server";
 import { MyRouteResponse } from "@shared/api"; // Optional: for type safety
 
-export const handleMyRoute: RequestHandler = (req, res) => {
-  const response: MyRouteResponse = {
-    message: 'Hello from my endpoint!'
-  };
-  res.json(response);
-};
+export async function GET() {
+  const response: MyRouteResponse = { message: 'Hello from my endpoint!' };
+  return NextResponse.json(response);
+}
 ```
 
-3. Register the route in `server/index.ts`:
-```typescript
-import { handleMyRoute } from "./routes/my-route";
-
-// Add to the createServer function:
-app.get("/api/my-endpoint", handleMyRoute);
-```
-
-4. Use in React components with type safety:
+3. Use in React components with type safety:
 ```typescript
 import { MyRouteResponse } from '@shared/api'; // Optional: for type safety
 
@@ -156,9 +141,9 @@ const data: MyRouteResponse = await response.json();
 
 ## Architecture Notes
 
-- Single-port development with Vite + Express integration
+- Next.js App Router + API routes
 - TypeScript throughout (client, server, shared)
-- Full hot reload for rapid development
+- Hot reload for rapid development
 - Production-ready with multiple deployment options
 - Comprehensive UI component library included
 - Type-safe API communication via shared interfaces

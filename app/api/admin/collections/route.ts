@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { collectionSchema, readDb, writeDb } from "../_db";
+import { collectionSchema, getDb } from "../_db";
 
 export async function GET() {
-  const db = await readDb();
-  return NextResponse.json(db.collections);
+  const db = await getDb();
+  const items = await db.collection("collections").find().project({ _id: 0 }).toArray();
+  return NextResponse.json(items);
 }
 
 export async function POST(request: Request) {
@@ -12,11 +13,13 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     return NextResponse.json(parsed.error.flatten(), { status: 400 });
   }
-  const db = await readDb();
-  if (db.collections.some((c) => c.id === parsed.data.id)) {
+  const db = await getDb();
+  const exists = await db
+    .collection("collections")
+    .findOne({ id: parsed.data.id });
+  if (exists) {
     return NextResponse.json({ message: "id exists" }, { status: 409 });
   }
-  db.collections.push(parsed.data);
-  await writeDb(db);
+  await db.collection("collections").insertOne(parsed.data);
   return NextResponse.json(parsed.data, { status: 201 });
 }

@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { ProductGrid } from "@/components/store/ProductCard";
-import { products } from "@/data/products";
+import { useQuery } from "@tanstack/react-query";
+import { StoreAPI } from "@/lib/store-api";
 
 export default function HomePage() {
+  const productsQ = useQuery({ queryKey: ["products"], queryFn: StoreAPI.listProducts });
   const heroSlides = [
     {
       image:
@@ -64,7 +66,7 @@ export default function HomePage() {
             <Link href="/shop">Shop all</Link>
           </Button>
         </div>
-        <ProductGrid items={products.slice(0, 8)} />
+        <ProductGrid items={(productsQ.data ?? []).slice(0, 8)} />
       </section>
 
       <section className="container py-12">

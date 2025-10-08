@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/store/ProductCard";
-import { products } from "@/data/products";
-import { categories } from "@/data/categories";
+import { useQuery } from "@tanstack/react-query";
+import { StoreAPI } from "@/lib/store-api";
 
 const COLLECTION_LABEL: Record<string, "Summer" | "Winter"> = {
   summer: "Summer",
@@ -16,6 +16,8 @@ export default function CollectionPage({
 }: {
   params: { slug: string };
 }) {
+  const productsQ = useQuery({ queryKey: ["products"], queryFn: StoreAPI.listProducts });
+  const categoriesQ = useQuery({ queryKey: ["categories"], queryFn: StoreAPI.listCategories });
   const key = params.slug?.toLowerCase();
   const collection = key ? COLLECTION_LABEL[key] : undefined;
 
@@ -23,10 +25,10 @@ export default function CollectionPage({
     notFound();
   }
 
-  const collectionCategories = categories.filter(
+  const collectionCategories = (categoriesQ.data ?? []).filter(
     (category) => category.collection === collection,
   );
-  const collectionProducts = products.filter(
+  const collectionProducts = (productsQ.data ?? []).filter(
     (product) => product.collection === collection,
   );
 

@@ -2,11 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { products, type Product } from "@/data/products";
+import type { ProductDTO } from "@shared/api";
 import { useCart } from "@/store/cart";
 import Link from "next/link";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product }: { product: ProductDTO }) {
   const { addItem } = useCart();
   return (
     <div className="group">
@@ -52,7 +52,7 @@ export function ProductCard({ product }: { product: Product }) {
   );
 }
 
-export function ProductGrid({ items = products }: { items?: Product[] }) {
+export function ProductGrid({ items = [] }: { items?: ProductDTO[] }) {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       {items.map((p) => (

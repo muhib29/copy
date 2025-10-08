@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { collectionSchema, readDb, writeDb } from "../../_db";
+import { collectionSchema, getDb } from "../../_db";
 
 export async function PUT(
   request: Request,
@@ -10,31 +10,22 @@ export async function PUT(
   if (!parsed.success) {
     return NextResponse.json(parsed.error.flatten(), { status: 400 });
   }
-  const db = await readDb();
-  const idx = db.collections.findIndex((c) => c.id === params.id);
-  if (idx === -1)
-    return NextResponse.json({ message: "not found" }, { status: 404 });
-  db.collections[idx] = parsed.data;
-  await writeDb(db);
-  return NextResponse.json(parsed.data);
+  const db = await getDb();
+  const res = await db
+    .collection("collections")
+    .findOneAndUpdate({ id: params.id }, { $set: parsed.data }, { returnDocument: "after" });
+  if (!res.value) return NextResponse.json({ message: "not found" }, { status: 404 });
+  return NextResponse.json(res.value);
 }
 
 export async function DELETE(
   _request: Request,
   { params }: { params: { id: string } },
 ) {
-  const db = await readDb();
-  db.collections = db.collections.filter((c) => c.id !== params.id);
-  db.categories = db.categories.filter(
-    (c) =>
-      c.collection !==
-      (params.id.toLowerCase() === "summer" ? "Summer" : "Winter"),
-  );
-  db.products = db.products.filter(
-    (p) =>
-      p.collection !==
-      (params.id.toLowerCase() === "summer" ? "Summer" : "Winter"),
-  );
-  await writeDb(db);
+  const db = await getDb();
+  await db.collection("collections").deleteOne({ id: params.id });
+  const name = params.id.toLowerCase() === "summer" ? "Summer" : "Winter";
+  await db.collection("categories").deleteMany({ collection: name });
+  await db.collection("products").deleteMany({ collection: name });
   return new NextResponse(null, { status: 204 });
 }
